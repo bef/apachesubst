@@ -1,0 +1,37 @@
+[include templates/std_templates.tmpl
+set ip 10.0.0.2
+set ::vhost "${ip}:80"
+set ::server_name "sample.example.com"
+set ::server_alias "www.${::server_name} foo.${::server_name} bar.${::server_name}"
+use_template https_redirect {
+	## a comment
+}]
+
+## HTTPS
+
+[set ::vhost "${ip}:443"
+use_template std_https {
+	## foo
+	## bar
+}]
+
+## HTTP with custom document root
+[set ::vhost "${ip}:80"
+set ::server_name blubb.example.com
+set ::document_root /www/${::server_name}/mediawiki
+set ::document_root_directory {
+	Options +Indexes
+	AllowOverride None
+	Order allow,deny
+	Allow from all
+}
+use_template std_http]
+
+## custom HTTPS without templates
+<VirtualHost [set ip]:443>
+	ServerAdmin foo@localhost
+	ServerName [set ::server_name]
+	DocumentRoot /www/[set ::server_name]/docs
+	## ...
+</VirtualHost>
+

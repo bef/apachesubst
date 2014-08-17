@@ -1,0 +1,26 @@
+[include templates/std_templates.tmpl
+set ip 10.0.0.1
+set ::vhost "${ip}:80"
+set ::server_name "blubber.example.com"
+set ::server_alias "www.${::server_name} foo.example.com bar.example.com"
+set ::server_admin "admin@example.com"
+
+set extra {
+	## extra configuration
+	<Location "/secret">
+		Order deny,allow
+		Deny from all
+	</Location>
+	<Location "/private">
+		Order deny,allow
+		Deny from all
+	</Location>
+
+	## ...
+}
+
+use_template std_http $extra]
+
+[set ::vhost "${ip}:443"
+use_template std_https $extra]
+
