@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh8.5
+#!/usr/bin/env tclsh
 ##
 ## apachesubst template engine
 ## - (C) 2013 - BeF <bef@pentaphase.de>
