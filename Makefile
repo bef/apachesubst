@@ -1,5 +1,7 @@
 TMPL_FILES := $(wildcard *.tmpl)
-TARGET_FILES := $(basename $(TMPL_FILES))
+## comment out to omit suffix. this value should match the suffix defined in a2ensite
+SUFFIX=.conf
+TARGET_FILES := $(addsuffix $(SUFFIX),$(basename $(TMPL_FILES)))
 
 all: $(TARGET_FILES)
 	@echo "-------------------------------------------------------------------"
@@ -8,7 +10,6 @@ all: $(TARGET_FILES)
 	@echo "or 'a2ensite ...'?"
 	@echo "-------------------------------------------------------------------"
 
-$(TARGET_FILES): % : %.tmpl apachesubst.tcl $(wildcard templates/*.tmpl)
+$(TARGET_FILES): %$(SUFFIX) : %.tmpl apachesubst.tcl $(wildcard templates/*.tmpl)
 	@echo "[+] $< --> $@"
 	@./apachesubst.tcl <$< >$@
-
