@@ -72,6 +72,7 @@ define_template std_https {
 		#allow from all
 		## apache 2.4
 		Require all granted
+	}} else { substitute $::document_root_directory }]
 	</Directory>
 
 	ErrorLog /var/log/apache2/[set ::server_name]-ssl-error.log
