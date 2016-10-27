@@ -97,7 +97,6 @@ define_template std_https {
 		switch -exact $::cacert {
 				"cacert class3" {return "SSLCertificateChainFile /etc/apache2/ssl/cacert/class3.crt"}
 				"startssl" {return "SSLCertificateChainFile /etc/apache2/ssl/startssl/sub.class1.server.ca.pem"}
-				default {return {## no SSLCertificateChainFile}}
 		}
 	}]
 	SSLProtocol             all -SSLv2
