@@ -85,6 +85,10 @@ define_template std_https {
 		SSLCertificateFile    /etc/letsencrypt/live/[set ::cert_name]/cert.pem
 		SSLCertificateKeyFile /etc/letsencrypt/live/[set ::cert_name]/privkey.pem
 		SSLCertificateChainFile /etc/letsencrypt/live/[set ::cert_name]/fullchain.pem
+		## letsencrypt validation without auth
+		<Location "/.well-known">
+		Satisfy any
+		</Location>
 	}} else { substitute {
 		SSLCertificateFile    /etc/apache2/ssl/[set ::cert_name].crt
 		SSLCertificateKeyFile /etc/apache2/ssl/[set ::cert_name].key
@@ -100,7 +104,7 @@ define_template std_https {
 	SSLCipherSuite          ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:HIGH:!RC4:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!PSK
 	SSLHonorCipherOrder     on
 	SSLCompression          off
-	
+
 
 	<FilesMatch "\.(cgi|shtml|phtml|php)$">
 		SSLOptions +StdEnvVars
